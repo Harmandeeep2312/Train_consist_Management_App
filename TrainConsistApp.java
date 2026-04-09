@@ -1,5 +1,24 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+// Bogie class (custom object)
+class Bogie {
+    String name;
+    int capacity;
+
+    // Constructor
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    // toString() for clean output
+    @Override
+    public String toString() {
+        return name + " (Capacity: " + capacity + ")";
+    }
+}
 
 public class TrainConsistApp {
 
@@ -7,24 +26,27 @@ public class TrainConsistApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        
-        Map<String, Integer> bogieCapacityMap = new HashMap<>();
+        // Create List of Bogie objects
+        List<Bogie> bogies = new ArrayList<>();
 
-        
-        bogieCapacityMap.put("Sleeper", 72);
-        bogieCapacityMap.put("AC Chair", 78);
-        bogieCapacityMap.put("First Class", 24);
+        // Add passenger bogies
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
 
-        
-        System.out.println("\nBogie Capacity Details:");
-        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
-            System.out.println(entry.getKey() + " -> Capacity: " + entry.getValue());
-        }
+        System.out.println("\nBefore Sorting:");
+        System.out.println(bogies);
 
-        
-        String searchBogie = "Sleeper";
-        if (bogieCapacityMap.containsKey(searchBogie)) {
-            System.out.println("\nCapacity of " + searchBogie + ": " + bogieCapacityMap.get(searchBogie));
-        }
+        // Sort using Comparator (ascending by capacity)
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+
+        System.out.println("\nAfter Sorting (Ascending by Capacity):");
+        System.out.println(bogies);
+
+        // Sort in descending order (important for exams)
+        bogies.sort((b1, b2) -> b2.capacity - b1.capacity);
+
+        System.out.println("\nAfter Sorting (Descending by Capacity):");
+        System.out.println(bogies);
     }
 }
